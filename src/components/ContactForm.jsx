@@ -87,21 +87,21 @@ const ContactForm = ({ onSubmit, onBack }) => {
           <p className="text-lg text-gray-600 mb-6">
             We've received your information and will get back to you within 24 hours with your personalized AI strategy.
           </p>
-          <div className="bg-blue-50 rounded-xl p-6 mb-6">
-            <p className="text-blue-900 font-semibold mb-2">
+          <div className="bg-orange-50 rounded-xl p-6 mb-6">
+            <p className="text-orange-900 font-semibold mb-2">
               What happens next?
             </p>
             <ul className="text-left text-gray-700 space-y-2 text-sm">
               <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
+                <span className="text-orange-600 mr-2">✓</span>
                 <span>We'll analyze your responses and create a custom strategy</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
+                <span className="text-orange-600 mr-2">✓</span>
                 <span>Our AI specialist will reach out to schedule a consultation</span>
               </li>
               <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
+                <span className="text-orange-600 mr-2">✓</span>
                 <span>We'll discuss implementation timelines and pricing</span>
               </li>
             </ul>
@@ -119,7 +119,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
       {/* Back Button */}
       <button
         onClick={onBack}
-        className="flex items-center text-gray-600 hover:text-gray-900 mb-6 md:mb-8 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-3 py-2 -ml-3"
+        className="flex items-center text-gray-600 hover:text-gray-900 mb-6 md:mb-8 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-lg px-3 py-2 -ml-3"
         aria-label="Go back to review answers"
       >
         <svg
@@ -147,7 +147,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
         <p className="text-gray-600 text-base md:text-lg mb-2">
           We'll send you a custom AI automation roadmap based on your answers
         </p>
-        <p className="text-sm text-blue-600 font-semibold">
+        <p className="text-sm text-orange-600 font-semibold">
           ⏱️ Expected response: within 24 hours
         </p>
       </div>
@@ -169,7 +169,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
               className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-4 transition-all ${
                 errors.name
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'
+                  : 'border-gray-300 focus:border-orange-500 focus:ring-orange-500/20'
               }`}
               placeholder="John Smith"
               aria-required="true"
@@ -200,7 +200,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
               className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-4 transition-all ${
                 errors.email
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'
+                  : 'border-gray-300 focus:border-orange-500 focus:ring-orange-500/20'
               }`}
               placeholder="john@company.com"
               aria-required="true"
@@ -231,7 +231,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
               className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-4 transition-all ${
                 errors.company
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'
+                  : 'border-gray-300 focus:border-orange-500 focus:ring-orange-500/20'
               }`}
               placeholder="Acme Corporation"
               aria-required="true"
@@ -262,7 +262,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
               className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-4 transition-all ${
                 errors.phone
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'
+                  : 'border-gray-300 focus:border-orange-500 focus:ring-orange-500/20'
               }`}
               placeholder="+1 (555) 123-4567"
               aria-invalid={errors.phone ? 'true' : 'false'}
@@ -291,7 +291,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
                   value="email"
                   checked={formData.preferredContact === 'email'}
                   onChange={handleChange}
-                  className="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                  className="w-4 h-4 text-orange-600 focus:ring-2 focus:ring-orange-500"
                 />
                 <span className="ml-3 text-gray-700">Email</span>
               </label>
@@ -302,7 +302,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
                   value="phone"
                   checked={formData.preferredContact === 'phone'}
                   onChange={handleChange}
-                  className="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                  className="w-4 h-4 text-orange-600 focus:ring-2 focus:ring-orange-500"
                 />
                 <span className="ml-3 text-gray-700">Phone Call</span>
               </label>
@@ -313,7 +313,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
                   value="whatsapp"
                   checked={formData.preferredContact === 'whatsapp'}
                   onChange={handleChange}
-                  className="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                  className="w-4 h-4 text-orange-600 focus:ring-2 focus:ring-orange-500"
                 />
                 <span className="ml-3 text-gray-700">WhatsApp</span>
               </label>
@@ -333,7 +333,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
           </a>
           <a
             href="sms:+1234567890&body=Hi, I completed the AI quiz"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors text-sm font-medium"
           >
             <span>📱</span> Send SMS
           </a>
@@ -342,7 +342,7 @@ const ContactForm = ({ onSubmit, onBack }) => {
         {/* Privacy Policy */}
         <p className="mt-6 text-xs text-gray-500">
           By submitting this form, you agree to our{' '}
-          <a href="/privacy" className="text-blue-600 hover:underline">
+          <a href="/privacy" className="text-orange-600 hover:underline">
             Privacy Policy
           </a>
           . We respect your privacy and will never share your information.
@@ -352,10 +352,10 @@ const ContactForm = ({ onSubmit, onBack }) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full mt-8 py-4 px-8 rounded-xl font-semibold text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/50 ${
+          className={`w-full mt-8 py-4 px-8 rounded-xl font-semibold text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-orange-500/50 ${
             isSubmitting
               ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xl hover:shadow-2xl hover:scale-105'
+              : 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-xl hover:shadow-2xl hover:scale-105'
           }`}
           aria-label="Submit contact information"
         >

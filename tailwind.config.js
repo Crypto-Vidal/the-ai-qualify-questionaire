@@ -11,17 +11,17 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: '#2563eb', // blue-600
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          DEFAULT: '#f97316', // orange-500
+          50: '#fff7ed',
+          100: '#ffedd5',
+          200: '#fed7aa',
+          300: '#fdba74',
+          400: '#fb923c',
+          500: '#f97316',
+          600: '#ea580c',
+          700: '#c2410c',
+          800: '#9a3412',
+          900: '#7c2d12',
         },
         secondary: {
           DEFAULT: '#f59e0b', // amber-500
@@ -93,12 +93,30 @@ export default {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        'flip-out': {
+          '0%': { transform: 'rotateY(0deg) scale(1)', opacity: '1' },
+          '50%': { transform: 'rotateY(90deg) scale(0.95)', opacity: '0.5' },
+          '100%': { transform: 'rotateY(90deg) scale(0.95)', opacity: '0' },
+        },
+        'flip-in': {
+          '0%': { transform: 'rotateY(-90deg) scale(0.95)', opacity: '0' },
+          '50%': { transform: 'rotateY(-90deg) scale(0.95)', opacity: '0.5' },
+          '100%': { transform: 'rotateY(0deg) scale(1)', opacity: '1' },
+        },
+        'scale-in': {
+          '0%': { transform: 'scale(0.9)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
       },
       animation: {
         shimmer: 'shimmer 2s infinite',
         'pulse-subtle': 'pulse-subtle 2s infinite',
         'slide-up': 'slide-up 0.5s ease-out',
         'fade-in': 'fade-in 0.3s ease-out',
+        'flip-out': 'flip-out 0.4s ease-in forwards',
+        'flip-in': 'flip-in 0.4s ease-out forwards',
+        'scale-in': 'scale-in 0.3s ease-out',
+        'scale': 'scale 0.2s ease-out',
       },
     },
   },

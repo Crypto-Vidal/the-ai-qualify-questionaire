@@ -230,11 +230,11 @@ const Report = ({ questions, answers, onBack }) => {
       </section>
 
       {/* Section 4: Recommendation */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-lg mb-8 border-2 border-blue-200">
+      <section className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 shadow-lg mb-8 border-2 border-orange-200">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Here's What We'd Recommend</h2>
         <p className="text-gray-600 mb-4">Based on what you told us, you probably need:</p>
 
-        <h3 className="text-xl font-bold text-blue-900 mb-3">{recommendation.tool}</h3>
+        <h3 className="text-xl font-bold text-orange-900 mb-3">{recommendation.tool}</h3>
         <p className="text-lg text-gray-700 mb-4">{recommendation.description}</p>
 
         <div className="bg-white rounded-lg p-6 mb-4">
@@ -242,15 +242,15 @@ const Report = ({ questions, answers, onBack }) => {
           <ul className="space-y-2">
             {recommendation.outcomes.map((outcome, index) => (
               <li key={index} className="flex items-start">
-                <span className="text-blue-600 mr-2">•</span>
+                <span className="text-orange-600 mr-2">•</span>
                 <span className="text-gray-700">{outcome}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="bg-blue-100 rounded-lg p-4">
-          <p className="font-semibold text-blue-900">
+        <div className="bg-orange-100 rounded-lg p-4">
+          <p className="font-semibold text-orange-900">
             Cost: ~{getBudgetRange()}/month (fits your budget)
           </p>
         </div>
@@ -266,7 +266,7 @@ const Report = ({ questions, answers, onBack }) => {
               if (!response) return null
 
               return (
-                <div key={index} className="border-l-4 border-blue-500 pl-6">
+                <div key={index} className="border-l-4 border-orange-500 pl-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">{response.title}</h3>
                   <p className="text-gray-700 leading-relaxed">{response.text}</p>
                 </div>
@@ -277,15 +277,15 @@ const Report = ({ questions, answers, onBack }) => {
       )}
 
       {/* Section 6: Call to Action */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 md:p-10 text-white shadow-xl mb-8">
+      <section className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 md:p-10 text-white shadow-xl mb-8">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">What's Next</h2>
-        <p className="text-lg mb-6 text-blue-100">
+        <p className="text-lg mb-6 text-orange-100">
           You've got the full picture now. Let's make it real.
         </p>
 
         <div className="bg-white/10 rounded-lg p-6 mb-6">
           <p className="font-semibold mb-3">On the call we'll:</p>
-          <ul className="space-y-2 text-blue-50">
+          <ul className="space-y-2 text-orange-50">
             <li>• Walk through your exact workflow</li>
             <li>• Confirm this is the right tool</li>
             <li>• Show you what week 1 looks like</li>
@@ -294,7 +294,7 @@ const Report = ({ questions, answers, onBack }) => {
 
         <button
           onClick={() => window.open('https://calendly.com', '_blank')}
-          className="w-full bg-white text-blue-600 text-xl py-5 px-8 rounded-xl font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50"
+          className="w-full bg-white text-orange-600 text-xl py-5 px-8 rounded-xl font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50"
         >
           Book a 20-Minute Call →
         </button>
@@ -304,7 +304,7 @@ const Report = ({ questions, answers, onBack }) => {
       <div className="text-center">
         <button
           onClick={onBack}
-          className="text-gray-600 hover:text-gray-900 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-4 py-2"
+          className="text-gray-600 hover:text-gray-900 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-lg px-4 py-2"
         >
           ← Go Back to Questions
         </button>

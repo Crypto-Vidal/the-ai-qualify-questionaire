@@ -155,7 +155,7 @@ function App() {
   const progress = currentStep === 0 ? 0 : currentStep > questions.length ? 100 : (currentStep / questions.length) * 100
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-white via-orange-50 to-white">
       {currentStep > 0 && currentStep <= questions.length + 1 && (
         <ProgressBar progress={progress} currentStep={currentStep} totalSteps={questions.length} />
       )}
