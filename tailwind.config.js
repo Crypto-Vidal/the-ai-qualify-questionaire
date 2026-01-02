@@ -103,6 +103,11 @@ export default {
           '50%': { transform: 'rotateY(-90deg) scale(0.95)', opacity: '0.5' },
           '100%': { transform: 'rotateY(0deg) scale(1)', opacity: '1' },
         },
+        'flip-continuous': {
+          '0%': { transform: 'rotateY(0deg) scale(1)' },
+          '50%': { transform: 'rotateY(180deg) scale(0.95)' },
+          '100%': { transform: 'rotateY(360deg) scale(1)' },
+        },
         'scale-in': {
           '0%': { transform: 'scale(0.9)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
@@ -115,6 +120,7 @@ export default {
         'fade-in': 'fade-in 0.3s ease-out',
         'flip-out': 'flip-out 0.4s ease-in forwards',
         'flip-in': 'flip-in 0.4s ease-out forwards',
+        'flip-continuous': 'flip-continuous 0.8s ease-in-out infinite',
         'scale-in': 'scale-in 0.3s ease-out',
         'scale': 'scale 0.2s ease-out',
       },
