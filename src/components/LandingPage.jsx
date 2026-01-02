@@ -16,7 +16,7 @@ const LandingPage = ({ onStart }) => {
         </p>
         <button
           onClick={onStart}
-          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xl py-5 px-12 rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-pulse-subtle focus:outline-none focus:ring-4 focus:ring-blue-500/50"
+          className="bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xl py-5 px-12 rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-pulse-subtle focus:outline-none focus:ring-4 focus:ring-orange-500/50"
           aria-label="Start the AI business diagnostic"
         >
           Start the Diagnostic
@@ -65,7 +65,7 @@ const LandingPage = ({ onStart }) => {
       </div>
 
       {/* Social Proof */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-xl">
+      <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-xl">
         <div className="flex justify-center mb-4">
           <div className="flex -space-x-2">
             <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white flex items-center justify-center text-xl">👤</div>
@@ -75,10 +75,10 @@ const LandingPage = ({ onStart }) => {
           </div>
         </div>
         <p className="text-lg md:text-xl font-semibold mb-2">Used by 500+ businesses</p>
-        <p className="text-blue-100 text-base md:text-lg">
+        <p className="text-orange-100 text-base md:text-lg">
           "Finally figured out where AI actually makes sense for us. Implementation took 2 weeks."
         </p>
-        <p className="text-sm text-blue-200 mt-2">— Sarah Chen, CEO at TechFlow</p>
+        <p className="text-sm text-orange-200 mt-2">— Sarah Chen, CEO at TechFlow</p>
       </div>
 
       {/* Trust Indicators */}

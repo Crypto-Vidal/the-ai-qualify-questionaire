@@ -31,7 +31,7 @@ const ProgressBar = ({ progress, currentStep, totalSteps }) => {
             aria-label={`Quiz progress: ${Math.round(progress)}% complete`}
           >
             {/* Gradient Background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500">
               {/* Shimmer Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
             </div>
@@ -43,7 +43,7 @@ const ProgressBar = ({ progress, currentStep, totalSteps }) => {
               className="absolute inset-y-0 left-0 blur-sm opacity-50 transition-all duration-500"
               style={{ width: `${progress}%` }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400" />
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500" />
             </div>
           )}
         </div>
@@ -51,7 +51,7 @@ const ProgressBar = ({ progress, currentStep, totalSteps }) => {
         {/* Celebration Message */}
         {showCelebration && (
           <div className="mt-3 text-center animate-slide-up">
-            <p className="text-sm font-semibold text-blue-600">
+            <p className="text-sm font-semibold text-orange-600">
               {progress === 50 && '🎉 Halfway there! Keep going!'}
               {progress === 100 && '✨ Amazing! You\'re all done!'}
             </p>
