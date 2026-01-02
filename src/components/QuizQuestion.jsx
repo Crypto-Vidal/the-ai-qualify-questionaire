@@ -6,14 +6,12 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
   const [confirmationText, setConfirmationText] = useState('')
   const [showNext, setShowNext] = useState(false)
   const [isFlipping, setIsFlipping] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setLocalSelection(selectedAnswer || (question.multiSelect ? [] : null))
     setShowConfirmation(false)
     setShowNext(false)
     setIsFlipping(false)
-    setIsLoading(false)
   }, [question.id, selectedAnswer, question.multiSelect])
 
   const handleOptionClick = (optionId) => {
@@ -39,12 +37,10 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
 
         setConfirmationText(text)
         setShowConfirmation(true)
-        setIsLoading(true) // Start continuous flip animation
 
         // Auto-advance to next card
         setTimeout(() => {
           setIsFlipping(false)
-          setIsLoading(false)
           onAnswer(question.id, optionId)
         }, 1500)
       }, 200)
@@ -62,11 +58,9 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
 
         setConfirmationText(text)
         setShowConfirmation(true)
-        setIsLoading(true) // Start continuous flip animation
 
         setTimeout(() => {
           setIsFlipping(false)
-          setIsLoading(false)
           onAnswer(question.id, localSelection)
         }, 1500)
       }, 200)
@@ -84,7 +78,7 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
     <div className="max-w-4xl mx-auto" style={{ perspective: '1000px' }}>
       {/* Card Container with Flip Animation */}
       <div
-        className={`relative transition-all duration-500 ${isLoading ? 'animate-flip-continuous' : isFlipping ? 'animate-flip-out' : 'animate-flip-in'}`}
+        className={`relative transition-all duration-500 ${isFlipping ? 'animate-flip-out' : 'animate-flip-in'}`}
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Flashcard */}
