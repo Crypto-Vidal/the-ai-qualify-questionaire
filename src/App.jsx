@@ -173,6 +173,7 @@ function App() {
             onBack={handleBack}
             currentStep={currentStep}
             totalSteps={questions.length}
+            nextButtonText={currentStep === 8 ? 'See How AI Could Help Your Business →' : undefined}
           />
         )}
 

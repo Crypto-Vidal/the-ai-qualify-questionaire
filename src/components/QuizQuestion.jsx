@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
-const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep, totalSteps }) => {
+const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep, totalSteps, nextButtonText }) => {
   const [localSelection, setLocalSelection] = useState(selectedAnswer || (question.multiSelect ? [] : null))
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
   const [showNext, setShowNext] = useState(false)
   const [isFlipping, setIsFlipping] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setLocalSelection(selectedAnswer || (question.multiSelect ? [] : null))
     setShowConfirmation(false)
     setShowNext(false)
     setIsFlipping(false)
+    setIsLoading(false)
   }, [question.id, selectedAnswer, question.multiSelect])
 
   const handleOptionClick = (optionId) => {
@@ -37,10 +39,12 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
 
         setConfirmationText(text)
         setShowConfirmation(true)
+        setIsLoading(true) // Start continuous flip animation
 
         // Auto-advance to next card
         setTimeout(() => {
           setIsFlipping(false)
+          setIsLoading(false)
           onAnswer(question.id, optionId)
         }, 1500)
       }, 200)
@@ -58,9 +62,11 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
 
         setConfirmationText(text)
         setShowConfirmation(true)
+        setIsLoading(true) // Start continuous flip animation
 
         setTimeout(() => {
           setIsFlipping(false)
+          setIsLoading(false)
           onAnswer(question.id, localSelection)
         }, 1500)
       }, 200)
@@ -78,7 +84,7 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
     <div className="max-w-4xl mx-auto" style={{ perspective: '1000px' }}>
       {/* Card Container with Flip Animation */}
       <div
-        className={`relative transition-all duration-500 ${isFlipping ? 'animate-flip-out' : 'animate-flip-in'}`}
+        className={`relative transition-all duration-500 ${isLoading ? 'animate-flip-continuous' : isFlipping ? 'animate-flip-out' : 'animate-flip-in'}`}
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Flashcard */}
@@ -209,7 +215,7 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
                     onClick={handleNext}
                     className="bg-gradient-to-r from-orange-500 to-orange-600 text-white text-lg py-4 px-12 rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-orange-500/50"
                   >
-                    Next →
+                    {nextButtonText || 'Next →'}
                   </button>
                 </div>
               )}
