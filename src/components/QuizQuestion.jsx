@@ -2,21 +2,15 @@ import React, { useState, useEffect } from 'react'
 
 const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep, totalSteps, nextButtonText }) => {
   const [localSelection, setLocalSelection] = useState(selectedAnswer || (question.multiSelect ? [] : null))
-  const [showConfirmation, setShowConfirmation] = useState(false)
-  const [confirmationText, setConfirmationText] = useState('')
   const [showNext, setShowNext] = useState(false)
-  const [isFlipping, setIsFlipping] = useState(false)
 
   useEffect(() => {
     setLocalSelection(selectedAnswer || (question.multiSelect ? [] : null))
-    setShowConfirmation(false)
     setShowNext(false)
-    setIsFlipping(false)
   }, [question.id, selectedAnswer, question.multiSelect])
 
   const handleOptionClick = (optionId) => {
     if (question.multiSelect) {
-      // Multi-select logic
       const currentSelections = Array.isArray(localSelection) ? localSelection : []
       const newSelections = currentSelections.includes(optionId)
         ? currentSelections.filter(id => id !== optionId)
@@ -25,45 +19,14 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
       setLocalSelection(newSelections)
       setShowNext(newSelections.length > 0)
     } else {
-      // Single select logic - trigger flip animation
-      setLocalSelection(optionId)
-      setIsFlipping(true)
-
-      // Show confirmation after flip starts
-      setTimeout(() => {
-        const text = typeof question.confirmation === 'function'
-          ? question.confirmation(optionId)
-          : question.confirmation || 'Good call.'
-
-        setConfirmationText(text)
-        setShowConfirmation(true)
-
-        // Auto-advance to next card
-        setTimeout(() => {
-          setIsFlipping(false)
-          onAnswer(question.id, optionId)
-        }, 1500)
-      }, 200)
+      // Immediately move to next question
+      onAnswer(question.id, optionId)
     }
   }
 
   const handleNext = () => {
     if (question.multiSelect && localSelection.length > 0) {
-      setIsFlipping(true)
-
-      setTimeout(() => {
-        const text = typeof question.confirmation === 'function'
-          ? question.confirmation(localSelection)
-          : question.confirmation || 'Got it.'
-
-        setConfirmationText(text)
-        setShowConfirmation(true)
-
-        setTimeout(() => {
-          setIsFlipping(false)
-          onAnswer(question.id, localSelection)
-        }, 1500)
-      }, 200)
+      onAnswer(question.id, localSelection)
     }
   }
 
@@ -75,153 +38,128 @@ const QuizQuestion = ({ question, selectedAnswer, onAnswer, onBack, currentStep,
   }
 
   return (
-    <div className="max-w-4xl mx-auto" style={{ perspective: '1000px' }}>
-      {/* Card Container with Flip Animation */}
-      <div
-        className={`relative transition-all duration-500 ${isFlipping ? 'animate-flip-out' : 'animate-flip-in'}`}
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-        {/* Flashcard */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 min-h-[500px] border-2 border-orange-100">
-          {/* Back Button */}
-          {!showConfirmation && (
-            <button
-              onClick={onBack}
-              className="flex items-center text-gray-600 hover:text-orange-600 mb-6 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-lg px-3 py-2 -ml-3"
-              aria-label="Go back to previous question"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+    <div className="max-w-4xl mx-auto">
+      <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 min-h-[500px] border-2 border-orange-100">
+        {/* Back Button */}
+        <button
+          onClick={onBack}
+          className="flex items-center text-gray-600 hover:text-orange-600 mb-6 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-lg px-3 py-2 -ml-3"
+          aria-label="Go back to previous question"
+        >
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <span className="font-medium">Back</span>
+        </button>
+
+        {/* Question Header */}
+        <div className="text-center mb-10">
+          <div className="inline-block bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            Question {currentStep} of {totalSteps}
+          </div>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-4">
+            {question.question}
+          </h2>
+          <p className="text-gray-600 text-base md:text-lg">
+            {question.subheading}
+          </p>
+        </div>
+
+        {/* Options Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {question.options.map((option) => {
+            const selected = isSelected(option.id)
+
+            return (
+              <button
+                key={option.id}
+                onClick={() => handleOptionClick(option.id)}
+                className={`
+                  relative bg-white rounded-2xl p-6 border-2
+                  transition-all duration-300 text-left
+                  hover:shadow-xl hover:-translate-y-1
+                  focus:outline-none focus:ring-4 focus:ring-orange-500/30
+                  ${selected ? 'border-orange-500 bg-orange-50 shadow-lg ring-4 ring-orange-500/20' : 'border-gray-200 hover:border-orange-300 hover:bg-orange-50/50'}
+                `}
+                aria-label={`Select option: ${option.text}`}
+                aria-pressed={selected}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              <span className="font-medium">Back</span>
-            </button>
-          )}
-
-          {/* Question Header */}
-          {!showConfirmation && (
-            <div className="text-center mb-10">
-              <div className="inline-block bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                Question {currentStep} of {totalSteps}
-              </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-4">
-                {question.question}
-              </h2>
-              <p className="text-gray-600 text-base md:text-lg">
-                {question.subheading}
-              </p>
-            </div>
-          )}
-
-          {/* Confirmation Message */}
-          {showConfirmation && (
-            <div className="text-center py-20 animate-scale-in">
-              <div className="text-6xl mb-6">✓</div>
-              <p className="text-2xl md:text-3xl font-semibold text-gray-900 max-w-2xl mx-auto leading-relaxed">
-                {confirmationText}
-              </p>
-            </div>
-          )}
-
-          {/* Options Grid */}
-          {!showConfirmation && (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {question.options.map((option) => {
-                  const selected = isSelected(option.id)
-
-                  return (
-                    <button
-                      key={option.id}
-                      onClick={() => handleOptionClick(option.id)}
-                      className={`
-                        relative bg-white rounded-2xl p-6 border-2
-                        transition-all duration-300 text-left
-                        hover:shadow-xl hover:-translate-y-1
-                        focus:outline-none focus:ring-4 focus:ring-orange-500/30
-                        ${selected ? 'border-orange-500 bg-orange-50 shadow-lg ring-4 ring-orange-500/20' : 'border-gray-200 hover:border-orange-300 hover:bg-orange-50/50'}
-                      `}
-                      aria-label={`Select option: ${option.text}`}
-                      aria-pressed={selected}
-                    >
-                      {/* Content */}
-                      <div className="relative flex items-start justify-between">
-                        <div className="flex items-start flex-1">
-                          {/* Emoji */}
-                          {option.emoji && (
-                            <div className="text-3xl md:text-4xl mr-4 flex-shrink-0">
-                              {option.emoji}
-                            </div>
-                          )}
-
-                          {/* Text */}
-                          <div className="flex-1">
-                            <div className="text-lg md:text-xl font-semibold text-gray-900 mb-2">
-                              {option.text}
-                            </div>
-                            {option.subtitle && (
-                              <div className="text-sm md:text-base text-gray-600 leading-relaxed">
-                                {option.subtitle}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Checkmark */}
-                        {selected && (
-                          <div className="ml-4 flex-shrink-0">
-                            <div className="w-7 h-7 bg-orange-500 rounded-full flex items-center justify-center animate-scale-in">
-                              <svg
-                                className="w-4 h-4 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={3}
-                                  d="M5 13l4 4L19 7"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        )}
+                {/* Content */}
+                <div className="relative flex items-start justify-between">
+                  <div className="flex items-start flex-1">
+                    {/* Emoji */}
+                    {option.emoji && (
+                      <div className="text-3xl md:text-4xl mr-4 flex-shrink-0">
+                        {option.emoji}
                       </div>
-                    </button>
-                  )
-                })}
-              </div>
+                    )}
 
-              {/* Next Button for Multi-Select */}
-              {question.multiSelect && showNext && (
-                <div className="mt-8 text-center animate-slide-up">
-                  <button
-                    onClick={handleNext}
-                    className="bg-gradient-to-r from-orange-500 to-orange-600 text-white text-lg py-4 px-12 rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-orange-500/50"
-                  >
-                    {nextButtonText || 'Next →'}
-                  </button>
+                    {/* Text */}
+                    <div className="flex-1">
+                      <div className="text-lg md:text-xl font-semibold text-gray-900 mb-2">
+                        {option.text}
+                      </div>
+                      {option.subtitle && (
+                        <div className="text-sm md:text-base text-gray-600 leading-relaxed">
+                          {option.subtitle}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Checkmark */}
+                  {selected && (
+                    <div className="ml-4 flex-shrink-0">
+                      <div className="w-7 h-7 bg-orange-500 rounded-full flex items-center justify-center">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={3}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              </button>
+            )
+          })}
+        </div>
 
-              {/* Help Text */}
-              <div className="mt-8 text-center">
-                <p className="text-sm text-gray-500">
-                  {question.multiSelect ? 'Select all that apply, then click Next' : 'Choose your answer to continue'}
-                </p>
-              </div>
-            </>
-          )}
+        {/* Next Button for Multi-Select */}
+        {question.multiSelect && showNext && (
+          <div className="mt-8 text-center">
+            <button
+              onClick={handleNext}
+              className="bg-gradient-to-r from-orange-500 to-orange-600 text-white text-lg py-4 px-12 rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-orange-500/50"
+            >
+              {nextButtonText || 'Next →'}
+            </button>
+          </div>
+        )}
+
+        {/* Help Text */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-500">
+            {question.multiSelect ? 'Select all that apply, then click Next' : 'Choose your answer to continue'}
+          </p>
         </div>
       </div>
     </div>
