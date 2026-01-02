@@ -9,11 +9,11 @@ const ProgressBar = ({ progress, currentStep, totalSteps }) => {
         {/* Progress Stats */}
         <div className="flex justify-between items-center mb-3">
           <div className="text-sm font-semibold text-gray-700">
-            {progress === 100 ? 'Complete!' : `${Math.round(progress)}% Complete`}
+            {progress === 100 ? 'Complete!' : `Question ${currentStep} of ${totalSteps}`}
           </div>
           {currentStep <= totalSteps && (
             <div className="text-sm text-gray-600">
-              Step {currentStep} of {totalSteps}
+              ~3 minutes
             </div>
           )}
         </div>
